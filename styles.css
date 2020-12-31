@@ -1,0 +1,158 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --cell-size: 70px;
+    --mark-size: calc(var(--cell-size) * .9);
+}
+
+body {
+    margin: 0;
+}
+
+.board1 {
+    width: 50vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center; 
+    float:left;
+    grid-template-columns: repeat(8, auto);
+    background-color: lightblue;
+}
+
+.board2 {
+    width: 50vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    float:right;
+    position: relative;
+    grid-template-columns: repeat(8, auto);
+    background-color: grey;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.cell.ship {
+    border-left: solid 10px green;
+    border-right: solid 10px green;
+    border-top: solid 10px green;
+    border-bottom: solid 10px green;
+}
+
+.cell.miss,
+.cell.hit {
+    cursor: not-allowed;
+}
+
+.board1 .cell:not(.miss):not(.hit):hover,
+.board2 .cell:not(.miss):not(.hit):hover {
+    background-color: yellow;
+}
+
+.cell.miss {
+    background-color: blue;
+}
+
+.cell.hidden {
+    background-color: lightgrey;
+}
+
+.cell.hit::before,
+.cell.hit::after {
+    background-color: red;
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+}
+
+.cell.hit::before {
+    transform: rotate(45deg);
+}
+
+.cell.hit::after {
+    transform: rotate(-45deg);
+}
+
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.winning-message button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+}
+
+.winning-message button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+.change-turn {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,1);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.change-turn button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+}
+
+.change-turn button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.change-turn.show {
+    display: flex;
+}
