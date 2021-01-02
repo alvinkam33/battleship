@@ -11,9 +11,35 @@ body {
     margin: 0;
 }
 
+.player1 {
+    width: 50vw;
+    height: 60px;
+    font-size: 50px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center; 
+    float:left;
+    background-color: lightblue;
+}
+
+.player2 {
+    width: 50vw;
+    height: 60px;
+    font-size: 50px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center; 
+    float:left;
+    background-color: grey;
+}
+
 .board1 {
     width: 50vw;
-    height: 100vh;
+    height: 95vh;
     display: grid;
     justify-content: center;
     align-content: center;
@@ -26,7 +52,7 @@ body {
 
 .board2 {
     width: 50vw;
-    height: 100vh;
+    height: 95vh;
     display: grid;
     justify-content: center;
     align-content: center;

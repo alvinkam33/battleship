@@ -14,9 +14,9 @@ const board2 = document.getElementById('board2')
 const winningMessageElement = document.getElementById('winningMessage')
 const restartButton = document.getElementById('restartButton')
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
-const startGameButton = document.getElementById('start')
 const changeTurnElement = document.getElementById('changeTurn')
 const changeTurnButton = document.getElementById('ok')
+const changeTurnMessage = document.querySelector('[change-turn-text]')
 
 // 0 = empty no ship
 // 1 = ship 1
@@ -32,7 +32,6 @@ let player1Turn
 
 startGame()
 
-startGameButton.addEventListener('click', startGame)
 restartButton.addEventListener('click', startGame)
 changeTurnButton.addEventListener('click', swapTurns)
 
@@ -88,8 +87,6 @@ function handleClick(e) {
             if (temp == 3) {
                 numLives1Ship3--;
             }
-            checkSink(player1Turn, temp)
-            checkWin(player1Turn)
         } else {
             cellClicked.classList.add(MISS_CLASS)
             player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 5
@@ -111,13 +108,13 @@ function handleClick(e) {
             if (temp == 3) {
                 numLives2Ship3--;
             }
-            checkSink(player1Turn, temp)
-            checkWin(player1Turn)
         } else {
             cellClicked.classList.add(MISS_CLASS)
             player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 5
         }
     }
+    checkSink(player1Turn, temp)
+    checkWin(player1Turn)
     changeTurnElement.classList.add('show')
 }
 
@@ -126,34 +123,50 @@ function checkSink(turn, temp) {
         if (temp == 1) {
             if (numLives1Ship1 == 0) {
                 //"sunk player 1 ship 1"
+                changeTurnMessage.innerText = 'Sunk ship 1! Pass device to Player 1'
+            } else {
+                changeTurnMessage.innerText = 'Hit! Pass device to Player 1'
             }
-        }
-        if (temp == 2) {
+        } else if (temp == 2) {
             if (numLives1Ship2 == 0) {
                 //"sunk player 1 ship 2"
+                changeTurnMessage.innerText = 'Sunk ship 2! Pass device to Player 1'
+            } else {
+                changeTurnMessage.innerText = 'Hit! Pass device to Player 1'
             }
-        }
-        if (temp == 3) {
+        } else if (temp == 3) {
             if (numLives1Ship3 == 0) {
                 //"sunk player 1 ship 3"
+                changeTurnMessage.innerText = 'Sunk ship 3! Pass device to Player 1'
+            } else {
+                changeTurnMessage.innerText = 'Hit! Pass device to Player 1'
             }
+        } else {
+            changeTurnMessage.innerText = 'Miss... Pass device to Player 1'
         }
     }
     if (turn == true) {
         if (temp == 1) {
             if (numLives2Ship1 == 0) {
                 //"sunk player 2 ship 1"
+                changeTurnMessage.innerText = 'Sunk ship 1! Pass device to Player 2'
+            } else {
+                changeTurnMessage.innerText = 'Hit! Pass device to Player 2'
             }
-        }
-        if (temp == 2) {
+        } else if (temp == 2) {
             if (numLives2Ship2 == 0) {
-                //"sunk player 2 ship 2"
+                changeTurnMessage.innerText = 'Sunk ship 2! Pass device to Player 2'
+            } else {
+                changeTurnMessage.innerText = 'Hit! Pass device to Player 2'
             }
-        }
-        if (temp == 3) {
+        } else if (temp == 3) {
             if (numLives2Ship3 == 0) {
-                //"sunk player 2 ship 3"
+                changeTurnMessage.innerText = 'Sunk ship 3! Pass device to Player 2'
+            } else {
+                changeTurnMessage.innerText = 'Hit! Pass device to Player 2'
             }
+        } else {
+            changeTurnMessage.innerText = 'Miss... Pass device to Player 2'
         }
     }
 }
