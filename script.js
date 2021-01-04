@@ -2,12 +2,12 @@ const MISS_CLASS = 'miss'
 const HIT_CLASS = 'hit'
 const SHIP_CLASS = 'ship'
 const HIDDEN_CLASS = 'hidden'
-var numLives1Ship1 = 2
-var numLives1Ship2 = 3
-var numLives1Ship3 = 4
-var numLives2Ship1 = 2
-var numLives2Ship2 = 3
-var numLives2Ship3 = 4
+var numLives1Ship1 = 0
+var numLives1Ship2 = 0
+var numLives1Ship3 = 0
+var numLives2Ship1 = 0
+var numLives2Ship2 = 0
+var numLives2Ship3 = 0
 const cellElements = document.querySelectorAll('[data-cell]')
 const board1 = document.getElementById('board1')
 const board2 = document.getElementById('board2')
@@ -49,15 +49,171 @@ function startGame() {
         cell.classList.remove(SHIP_CLASS)
         player1board = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]]
         player2board = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]]
-        cell.removeEventListener('click', handleClick)
-        cell.addEventListener('click', handleClick, { once: true})
+        cell.removeEventListener('click', handleFire)
+        cell.addEventListener('click', placeShip, { once: true})
     })
-    placeShips()
+   // chooseShipPlacement()
+    //placeShips()
     hideOpponentBoard()
-    winningMessageElement.classList.remove('show')
+    //winningMessageElement.classList.remove('show')
+    
 }
 
-function handleClick(e) {
+function chooseShipPlacement() {
+    hideOpponentBoard()
+    //place ship 1
+    player1Turn = false
+    hideOpponentBoard()
+    player1Turn = true
+    //place ship 2
+    //place ship 3
+    // swap player 2
+    //place ship 1
+    //place ship 2
+    //place ship 3
+}
+
+function placeShip(e) {
+    const cellClicked = e.target
+    var cellIndex
+    var i = 0
+    var temp
+    for (i = 0; i < 128; i++) {
+        if (cellElements[i] == cellClicked)
+        cellIndex = i;
+    }
+    if (player1Turn == true) {
+        if (numLives1Ship1 < 2) {
+            if (numLives1Ship1 == 0) {
+                cellClicked.classList.add(SHIP_CLASS)
+                player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 1
+                numLives1Ship1++
+            } else if (numLives1Ship1 == 1) {
+                if (player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 1 || player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 1 || player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 1 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 1) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 1
+                    numLives1Ship1++
+                }
+            }
+        } else if (numLives1Ship2 < 3) {
+            if (numLives1Ship2 == 0) {
+                if (player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 2
+                    numLives1Ship2++
+                 }
+            } else if (numLives1Ship2 == 1) {
+                if ((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 2 || player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 2 || player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 2 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 2) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 2
+                    numLives1Ship2++
+                }
+            } else if (numLives1Ship2 == 2) {
+                if (((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 2 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 2) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 2 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 2) || (player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 2 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 2) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 2 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 2)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 2
+                    numLives1Ship2++
+                }
+            }
+        } else if (numLives1Ship3 < 4) {
+            if (numLives1Ship3 == 0) {
+                if (player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 3
+                    numLives1Ship3++
+                 }
+            } else if (numLives1Ship3 == 1) {
+                if ((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 3 || player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 3 || player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 3 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 3
+                    numLives1Ship3++
+                }
+            } else if (numLives1Ship3 == 2) {
+                if (((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 3) || (player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 3)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 3
+                    numLives1Ship3++
+                }
+            } else if (numLives1Ship3 == 3) {
+                if (((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-3][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-3] == 3) || (player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+3][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+3] == 3)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 3
+                    numLives1Ship3++
+                    player1Turn = false
+                    hideOpponentBoard()
+                }
+            }
+        }
+    } else if (player1Turn == false) {
+        if (numLives2Ship1 < 2) {
+            if (numLives2Ship1 == 0) {
+                cellClicked.classList.add(SHIP_CLASS)
+                player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 1
+                numLives2Ship1++
+            } else if (numLives2Ship1 == 1) {
+                if (player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 1 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 1 || player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 1 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 1) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 1
+                    numLives2Ship1++
+                }
+            }
+        } else if (numLives2Ship2 < 3) {
+            if (numLives2Ship2 == 0) {
+                if (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 2
+                    numLives2Ship2++
+                 }
+            } else if (numLives2Ship2 == 1) {
+                if ((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 2 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 2 || player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 2 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 2) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 2
+                    numLives2Ship2++
+                }
+            } else if (numLives2Ship2 == 2) {
+                if (((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 2 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 2) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 2 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 2) || (player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 2 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 2) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 2 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 2)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 2
+                    numLives2Ship2++
+                }
+            }
+        } else if (numLives2Ship3 < 4) {
+            if (numLives2Ship3 == 0) {
+                if (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 3
+                    numLives2Ship3++
+                 }
+            } else if (numLives2Ship3 == 1) {
+                if ((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 3 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 3 || player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 3 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 3
+                    numLives2Ship3++
+                }
+            } else if (numLives2Ship3 == 2) {
+                if (((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 3) || (player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 3)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 3
+                    numLives2Ship3++
+                }
+            } else if (numLives2Ship3 == 3) {
+                if (((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-3][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-3] == 3) || (player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+3][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+3] == 3)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                    cellClicked.classList.add(SHIP_CLASS)
+                    player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 3
+                    numLives2Ship3++
+                    cellElements.forEach(cell => {
+                        cell.removeEventListener('click', placeShip)
+                        cell.addEventListener('click', handleFire, {once: true})
+                    })
+                    player1Turn = true
+                    hideOpponentBoard()
+                }
+            }
+        }
+    }
+}
+
+function handleFire(e) {
     // if array is 1/2/3 assign hit class
     // else assign miss
     // check for win
