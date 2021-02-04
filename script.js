@@ -50,7 +50,7 @@ function startGame() {
         player1board = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]]
         player2board = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]]
         cell.removeEventListener('click', handleFire)
-        cell.addEventListener('click', placeShip, { once: true})
+        cell.addEventListener('click', placeShip)
     })
    // chooseShipPlacement()
     //placeShips()
@@ -89,7 +89,7 @@ function placeShip(e) {
                 player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 1
                 numLives1Ship1++
             } else if (numLives1Ship1 == 1) {
-                if (player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 1 || player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 1 || player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 1 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 1) {
+                if (player1board[Math.max(0, (cellIndex % 8)-1)][Math.floor(cellIndex/8)] == 1 || player1board[cellIndex % 8][Math.max(0, Math.floor(cellIndex/8)-1)] == 1 || player1board[Math.min(7, (cellIndex % 8)+1)][Math.floor(cellIndex/8)] == 1 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 1) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 1
                     numLives1Ship1++
@@ -103,13 +103,13 @@ function placeShip(e) {
                     numLives1Ship2++
                  }
             } else if (numLives1Ship2 == 1) {
-                if ((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 2 || player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 2 || player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 2 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 2) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                if ((player1board[Math.max(0, (cellIndex % 8)-1)][Math.floor(cellIndex/8)] == 2 || player1board[cellIndex % 8][Math.max(0, Math.floor(cellIndex/8)-1)] == 2 || player1board[Math.min(7, (cellIndex % 8)+1)][Math.floor(cellIndex/8)] == 2 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 2) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 2
                     numLives1Ship2++
                 }
             } else if (numLives1Ship2 == 2) {
-                if (((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 2 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 2) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 2 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 2) || (player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 2 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 2) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 2 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 2)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                if (((player1board[Math.max(0, (cellIndex % 8)-1)][Math.floor(cellIndex/8)] == 2 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 2) || (player1board[cellIndex % 8][Math.max(0, Math.floor(cellIndex/8)-1)] == 2 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 2) || (player1board[Math.min(7, (cellIndex % 8)+1)][Math.floor(cellIndex/8)] == 2 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 2) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 2 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 2)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 2
                     numLives1Ship2++
@@ -123,19 +123,19 @@ function placeShip(e) {
                     numLives1Ship3++
                  }
             } else if (numLives1Ship3 == 1) {
-                if ((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 3 || player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 3 || player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 3 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                if ((player1board[Math.max(0, (cellIndex % 8)-1)][Math.floor(cellIndex/8)] == 3 || player1board[cellIndex % 8][Math.max(0, Math.floor(cellIndex/8)-1)] == 3 || player1board[Math.min(7, (cellIndex % 8)+1)][Math.floor(cellIndex/8)] == 3 || player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 3
                     numLives1Ship3++
                 }
             } else if (numLives1Ship3 == 2) {
-                if (((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 3) || (player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 3)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                if (((player1board[Math.max(0, (cellIndex % 8)-1)][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.max(0, Math.floor(cellIndex/8)-1)] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 3) || (player1board[Math.min(7, (cellIndex % 8)+1)][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 3)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 3
                     numLives1Ship3++
                 }
             } else if (numLives1Ship3 == 3) {
-                if (((player1board[(cellIndex % 8)-1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-3][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)-1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-3] == 3) || (player1board[(cellIndex % 8)+1][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+3][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+3] == 3)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
+                if (((player1board[Math.max(0, (cellIndex % 8)-1)][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-2][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)-3][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.max(0, Math.floor(cellIndex/8)-1)] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-2] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)-3] == 3) || (player1board[Math.min(7, (cellIndex % 8)+1)][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+2][Math.floor(cellIndex/8)] == 3 && player1board[(cellIndex % 8)+3][Math.floor(cellIndex/8)] == 3) || (player1board[cellIndex % 8][Math.floor(cellIndex/8)+1] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+2] == 3 && player1board[cellIndex % 8][Math.floor(cellIndex/8)+3] == 3)) && player1board[cellIndex % 8][Math.floor(cellIndex/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player1board[cellIndex % 8][Math.floor(cellIndex/8)] = 3
                     numLives1Ship3++
@@ -151,7 +151,7 @@ function placeShip(e) {
                 player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 1
                 numLives2Ship1++
             } else if (numLives2Ship1 == 1) {
-                if (player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 1 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 1 || player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 1 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 1) {
+                if (player2board[Math.max(0, ((cellIndex-64) % 8)-1)][Math.floor((cellIndex-64)/8)] == 1 || player2board[(cellIndex-64) % 8][Math.max(0, Math.floor((cellIndex-64)/8)-1)] == 1 || player2board[Math.min(7, ((cellIndex-64) % 8)+1)][Math.floor((cellIndex-64)/8)] == 1 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 1) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 1
                     numLives2Ship1++
@@ -165,13 +165,13 @@ function placeShip(e) {
                     numLives2Ship2++
                  }
             } else if (numLives2Ship2 == 1) {
-                if ((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 2 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 2 || player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 2 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 2) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                if ((player2board[Math.max(0, ((cellIndex-64) % 8)-1)][Math.floor((cellIndex-64)/8)] == 2 || player2board[(cellIndex-64) % 8][Math.max(0,Math.floor((cellIndex-64)/8)-1)] == 2 || player2board[Math.min(7, ((cellIndex-64) % 8)+1)][Math.floor((cellIndex-64)/8)] == 2 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 2) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 2
                     numLives2Ship2++
                 }
             } else if (numLives2Ship2 == 2) {
-                if (((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 2 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 2) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 2 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 2) || (player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 2 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 2) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 2 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 2)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                if (((player2board[Math.max(0, ((cellIndex-64) % 8)-1)][Math.floor((cellIndex-64)/8)] == 2 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 2) || (player2board[(cellIndex-64) % 8][Math.max(0,Math.floor((cellIndex-64)/8)-1)] == 2 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 2) || (player2board[Math.min(7, ((cellIndex-64) % 8)+1)][Math.floor((cellIndex-64)/8)] == 2 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 2) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 2 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 2)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 2
                     numLives2Ship2++
@@ -185,19 +185,19 @@ function placeShip(e) {
                     numLives2Ship3++
                  }
             } else if (numLives2Ship3 == 1) {
-                if ((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 3 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 3 || player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 3 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                if ((player2board[Math.max(0, ((cellIndex-64) % 8)-1)][Math.floor((cellIndex-64)/8)] == 3 || player2board[(cellIndex-64) % 8][Math.max(0,Math.floor((cellIndex-64)/8)-1)] == 3 || player2board[Math.min(7, ((cellIndex-64) % 8)+1)][Math.floor((cellIndex-64)/8)] == 3 || player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 3
                     numLives2Ship3++
                 }
             } else if (numLives2Ship3 == 2) {
-                if (((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 3) || (player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 3)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                if (((player2board[Math.max(0, ((cellIndex-64) % 8)-1)][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.max(0,Math.floor((cellIndex-64)/8)-1)] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 3) || (player2board[Math.min(7, ((cellIndex-64) % 8)+1)][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 3)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 3
                     numLives2Ship3++
                 }
             } else if (numLives2Ship3 == 3) {
-                if (((player2board[((cellIndex-64) % 8)-1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-3][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-3] == 3) || (player2board[((cellIndex-64) % 8)+1][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+3][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+3] == 3)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
+                if (((player2board[Math.max(0, ((cellIndex-64) % 8)-1)][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-2][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)-3][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.max(0,Math.floor((cellIndex-64)/8)-1)] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-2] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)-3] == 3) || (player2board[Math.min(7, ((cellIndex-64) % 8)+1)][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+2][Math.floor((cellIndex-64)/8)] == 3 && player2board[((cellIndex-64) % 8)+3][Math.floor((cellIndex-64)/8)] == 3) || (player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+1] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+2] == 3 && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)+3] == 3)) && player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] == 0) {
                     cellClicked.classList.add(SHIP_CLASS)
                     player2board[(cellIndex-64) % 8][Math.floor((cellIndex-64)/8)] = 3
                     numLives2Ship3++
