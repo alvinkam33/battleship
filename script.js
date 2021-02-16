@@ -203,7 +203,7 @@ function placeShip(e) {
                     numLives2Ship3++
                     cellElements.forEach(cell => {
                         cell.removeEventListener('click', placeShip)
-                        cell.addEventListener('click', handleFire, {once: true})
+                        cell.addEventListener('click', handleFire)
                     })
                     player1Turn = true
                     hideOpponentBoard()
