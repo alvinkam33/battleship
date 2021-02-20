@@ -17,6 +17,12 @@ const winningMessageTextElement = document.querySelector('[data-winning-message-
 const changeTurnElement = document.getElementById('changeTurn')
 const changeTurnButton = document.getElementById('ok')
 const changeTurnMessage = document.querySelector('[change-turn-text]')
+const p1s1 = document.querySelector('[p1s1]')
+const p1s2 = document.querySelector('[p1s2]')
+const p1s3 = document.querySelector('[p1s3]')
+const p2s1 = document.querySelector('[p2s1]')
+const p2s2 = document.querySelector('[p2s2]')
+const p2s3 = document.querySelector('[p2s3]')
 
 // 0 = empty no ship
 // 1 = ship 1
@@ -39,7 +45,7 @@ changeTurnButton.addEventListener('click', swapTurns)
 function startGame() {
     // set player1Turn to true
     // remove previous gamestate
-    // remove and reapply event listener
+    // remove and reapply event listener to placeShip
     // remove winning message
     // randomize shipboard placement
     player1Turn = true
@@ -52,32 +58,21 @@ function startGame() {
         cell.removeEventListener('click', handleFire)
         cell.addEventListener('click', placeShip)
     })
-   // chooseShipPlacement()
-    //placeShips()
+    //placeShipsRandom()
+    p1s1.innerText = 'Ship 1: Active'
+    p1s2.innerText = 'Ship 2: Active'
+    p1s3.innerText = 'Ship 3: Active'
+    p2s1.innerText = 'Ship 1: Active'
+    p2s2.innerText = 'Ship 2: Active'
+    p2s3.innerText = 'Ship 3: Active'
     hideOpponentBoard()
-    //winningMessageElement.classList.remove('show')
-    
-}
-
-function chooseShipPlacement() {
-    hideOpponentBoard()
-    //place ship 1
-    player1Turn = false
-    hideOpponentBoard()
-    player1Turn = true
-    //place ship 2
-    //place ship 3
-    // swap player 2
-    //place ship 1
-    //place ship 2
-    //place ship 3
+    winningMessageElement.classList.remove('show')
 }
 
 function placeShip(e) {
     const cellClicked = e.target
     var cellIndex
     var i = 0
-    var temp
     for (i = 0; i < 128; i++) {
         if (cellElements[i] == cellClicked)
         cellIndex = i;
@@ -279,6 +274,7 @@ function checkSink(turn, temp) {
         if (temp == 1) {
             if (numLives1Ship1 == 0) {
                 //"sunk player 1 ship 1"
+                p1s1.innerText = 'Ship 1: Sunk'
                 changeTurnMessage.innerText = 'Sunk ship 1! Pass device to Player 1'
             } else {
                 changeTurnMessage.innerText = 'Hit! Pass device to Player 1'
@@ -286,6 +282,7 @@ function checkSink(turn, temp) {
         } else if (temp == 2) {
             if (numLives1Ship2 == 0) {
                 //"sunk player 1 ship 2"
+                p1s2.innerText = 'Ship 2: Sunk'
                 changeTurnMessage.innerText = 'Sunk ship 2! Pass device to Player 1'
             } else {
                 changeTurnMessage.innerText = 'Hit! Pass device to Player 1'
@@ -293,6 +290,7 @@ function checkSink(turn, temp) {
         } else if (temp == 3) {
             if (numLives1Ship3 == 0) {
                 //"sunk player 1 ship 3"
+                p1s3.innerText = 'Ship 3: Sunk'
                 changeTurnMessage.innerText = 'Sunk ship 3! Pass device to Player 1'
             } else {
                 changeTurnMessage.innerText = 'Hit! Pass device to Player 1'
@@ -305,18 +303,21 @@ function checkSink(turn, temp) {
         if (temp == 1) {
             if (numLives2Ship1 == 0) {
                 //"sunk player 2 ship 1"
+                p2s1.innerText = 'Ship 1: Sunk'
                 changeTurnMessage.innerText = 'Sunk ship 1! Pass device to Player 2'
             } else {
                 changeTurnMessage.innerText = 'Hit! Pass device to Player 2'
             }
         } else if (temp == 2) {
             if (numLives2Ship2 == 0) {
+                p2s2.innerText = 'Ship 2: Sunk'
                 changeTurnMessage.innerText = 'Sunk ship 2! Pass device to Player 2'
             } else {
                 changeTurnMessage.innerText = 'Hit! Pass device to Player 2'
             }
         } else if (temp == 3) {
             if (numLives2Ship3 == 0) {
+                p2s3.innerText = 'Ship 3: Sunk'
                 changeTurnMessage.innerText = 'Sunk ship 3! Pass device to Player 2'
             } else {
                 changeTurnMessage.innerText = 'Hit! Pass device to Player 2'
@@ -342,7 +343,7 @@ function checkWin(turn) {
     }
 }
 
-function placeShips() {
+function placeShipsRandom() { // places ships randomly; currently unused
     //place ship 1: 2 spots
     //place ship 2: 3 spots
     //place ship 3: 4 spots
